@@ -46,8 +46,8 @@ export class Startup extends Component {
     this.console.log('gameJson:', gameJson);
   }
 
-  async htpIoctl() {
-    if (sys.platform !== sys.ANDROID) {
+  htpIoctl() {
+    if (!this.isAndroid()) {
       this.console.log('Only supported on Android');
       return;
     }
@@ -81,5 +81,48 @@ export class Startup extends Component {
       'Encrypted HTP Version:',
       netease.yidun.yidunService.htpIoctl(requestCmdID, '')
     );
+  }
+
+  encodeAndDecodeLocal() {
+    if (!this.isAndroid()) {
+      this.console.log('Only supported on Android');
+      return;
+    }
+
+    const inputData = 'Test text';
+    this.console.log('Encode text:', inputData);
+    const encodedData = netease.yidun.yidunService.encodeLocal(inputData);
+    this.console.log('Encoded data:', encodedData);
+
+    this.console.log('Decode text:', encodedData);
+    const decodedData = netease.yidun.yidunService.decodeLocal(encodedData);
+    this.console.log('Decoded data:', decodedData);
+  }
+
+  encodeAndDecodeLocalByte() {
+    if (!this.isAndroid()) {
+      this.console.log('Only supported on Android');
+      return;
+    }
+
+    const inputBytes: number[] = [];
+    for (let i = 0; i < 100; ++i) {
+      // Generate 100 numbers that range between [-128, 127].
+      // 生成100个范围在-128-127的数字。
+      inputBytes.push(Math.floor(Math.random() * 256) - 128);
+    }
+    this.console.log('Encode bytes:', inputBytes);
+    const encodedData = netease.yidun.yidunService.encodeLocalByte(inputBytes);
+    this.console.log('Encoded bytes:', encodedData);
+
+    this.console.log('Decode data:', encodedData);
+    const decodedBytes = netease.yidun.yidunService.decodeLocalByte(
+      encodedData
+    );
+    this.console.log('Decoded bytes:', decodedBytes);
+  }
+
+  isAndroid() {
+    return sys.platform === sys.ANDROID;
   }
 }
