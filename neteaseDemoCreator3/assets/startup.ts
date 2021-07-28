@@ -8,6 +8,7 @@ export class Startup extends Component {
   console: Console = null!;
 
   static isInitialized = false;
+  static hasSetRoleInfo = false;
 
   start() {
     if (!Startup.isInitialized) {
@@ -38,6 +39,7 @@ export class Startup extends Component {
       roleServer,
       JSON.stringify(gameJson)
     );
+    Startup.hasSetRoleInfo = true;
     this.console.log('setRoleInfo');
     this.console.log('roleId:', roleId);
     this.console.log('roleName:', roleName);
@@ -120,6 +122,23 @@ export class Startup extends Component {
       encodedData
     );
     this.console.log('Decoded bytes:', decodedBytes);
+  }
+
+  impIoctl() {
+    if (!this.isAndroid()) {
+      this.console.log('Only supported on Android');
+      return;
+    }
+
+    if (!Startup.hasSetRoleInfo) {
+      this.console.log(
+        'Please press the setRoleInfo button before press this button'
+      );
+      return;
+    }
+
+    netease.yidun.yidunService.impIoctl();
+    this.console.log('impIoctl');
   }
 
   isAndroid() {
