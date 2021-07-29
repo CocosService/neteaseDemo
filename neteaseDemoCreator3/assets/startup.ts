@@ -7,8 +7,9 @@ export class Startup extends Component {
   @property({ type: Console })
   console: Console = null!;
 
-  static isInitialized = false;
-  static hasSetRoleInfo = false;
+  private static isInitialized = false;
+  private static hasSetRoleInfo = false;
+  private hasRegisteredInfoReceiver = false;
 
   start() {
     if (!Startup.isInitialized) {
@@ -139,6 +140,27 @@ export class Startup extends Component {
 
     netease.yidun.yidunService.impIoctl();
     this.console.log('impIoctl');
+  }
+
+  registInfoReceiver() {
+    if (!this.isAndroid()) {
+      this.console.log('Only supported on Android');
+      return;
+    }
+    if (!this.hasRegisteredInfoReceiver) {
+      this.console.log('Register info receiver');
+      netease.yidun.yidunService.registInfoReceiver((type, info) => {
+        if (type === netease.yidun.NetHeartBeatInfoType.HeartBeat) {
+          this.console.log('Receive heart beat:', info);
+        } else if (type === netease.yidun.NetHeartBeatInfoType.EncHeartBeat) {
+          this.console.log('Receive heart beat in encrypted form:', info);
+          this.console.log('You need sending it to server for decryption');
+        }
+      });
+      this.hasRegisteredInfoReceiver = true;
+    } else {
+      this.console.log('Info receiver already registered');
+    }
   }
 
   isAndroid() {
