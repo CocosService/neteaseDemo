@@ -1,4 +1,4 @@
-import { _decorator, Component, sys } from 'cc';
+import { _decorator, Component, director } from 'cc';
 const { ccclass, property } = _decorator;
 import { Console } from './prefabs/console';
 
@@ -8,8 +8,6 @@ export class Startup extends Component {
   console: Console = null!;
 
   private static isInitialized = false;
-  private static hasSetRoleInfo = false;
-  private hasRegisteredInfoReceiver = false;
 
   start() {
     if (!Startup.isInitialized) {
@@ -21,149 +19,11 @@ export class Startup extends Component {
     }
   }
 
-  setRoleInfo() {
-    const roleId = '123456';
-    const roleName = '易小盾';
-    const roleAccount = 'yd@163.com';
-    const roleServer = '游戏测试服';
-    const gameJson = {
-      GameVersion: '1.0.1',
-      AssetVersion: '1.0.1',
-      TransHost: 'test.163.com',
-      TransIP: '8.8.8.8',
-      TransPort: 80,
-    };
-    netease.yidun.yidunService.setRoleInfo(
-      roleId,
-      roleName,
-      roleAccount,
-      roleServer,
-      JSON.stringify(gameJson)
-    );
-    Startup.hasSetRoleInfo = true;
-    this.console.log('setRoleInfo');
-    this.console.log('roleId:', roleId);
-    this.console.log('roleName:', roleName);
-    this.console.log('roleAccount:', roleAccount);
-    this.console.log('roleServer:', roleServer);
-    this.console.log('gameJson:', gameJson);
+  page1() {
+    director.loadScene('page1');
   }
 
-  htpIoctl() {
-    if (!this.isAndroid()) {
-      this.console.log('Only supported on Android');
-      return;
-    }
-
-    let requestCmdID = netease.yidun.RequestCmdID.GetEmulatorName;
-    this.console.log(
-      'The name of the emulator:',
-      netease.yidun.yidunService.htpIoctl(requestCmdID, '')
-    );
-
-    requestCmdID = netease.yidun.RequestCmdID.IsRootDevice;
-    this.console.log(
-      'Is root device:',
-      netease.yidun.yidunService.htpIoctl(requestCmdID, '')
-    );
-
-    requestCmdID = netease.yidun.RequestCmdID.DeviceID;
-    this.console.log(
-      'DeviceID:',
-      netease.yidun.yidunService.htpIoctl(requestCmdID, '')
-    );
-
-    requestCmdID = netease.yidun.RequestCmdID.GetHTPVersion;
-    this.console.log(
-      'HTP Version:',
-      netease.yidun.yidunService.htpIoctl(requestCmdID, '')
-    );
-
-    requestCmdID = netease.yidun.RequestCmdID.GetEncHTPVersion;
-    this.console.log(
-      'Encrypted HTP Version:',
-      netease.yidun.yidunService.htpIoctl(requestCmdID, '')
-    );
-  }
-
-  encodeAndDecodeLocal() {
-    if (!this.isAndroid()) {
-      this.console.log('Only supported on Android');
-      return;
-    }
-
-    const inputData = 'Test text';
-    this.console.log('Encode text:', inputData);
-    const encodedData = netease.yidun.yidunService.encodeLocal(inputData);
-    this.console.log('Encoded data:', encodedData);
-
-    this.console.log('Decode text:', encodedData);
-    const decodedData = netease.yidun.yidunService.decodeLocal(encodedData);
-    this.console.log('Decoded data:', decodedData);
-  }
-
-  encodeAndDecodeLocalByte() {
-    if (!this.isAndroid()) {
-      this.console.log('Only supported on Android');
-      return;
-    }
-
-    const inputBytes: number[] = [];
-    for (let i = 0; i < 100; ++i) {
-      // Generate 100 numbers that range between [-128, 127].
-      // 生成100个范围在-128-127的数字。
-      inputBytes.push(Math.floor(Math.random() * 256) - 128);
-    }
-    this.console.log('Encode bytes:', inputBytes);
-    const encodedData = netease.yidun.yidunService.encodeLocalByte(inputBytes);
-    this.console.log('Encoded bytes:', encodedData);
-
-    this.console.log('Decode data:', encodedData);
-    const decodedBytes = netease.yidun.yidunService.decodeLocalByte(
-      encodedData
-    );
-    this.console.log('Decoded bytes:', decodedBytes);
-  }
-
-  impIoctl() {
-    if (!this.isAndroid()) {
-      this.console.log('Only supported on Android');
-      return;
-    }
-
-    if (!Startup.hasSetRoleInfo) {
-      this.console.log(
-        'Please press the setRoleInfo button before press this button'
-      );
-      return;
-    }
-
-    netease.yidun.yidunService.impIoctl();
-    this.console.log('impIoctl');
-  }
-
-  registInfoReceiver() {
-    if (!this.isAndroid()) {
-      this.console.log('Only supported on Android');
-      return;
-    }
-    if (!this.hasRegisteredInfoReceiver) {
-      this.console.log('Register info receiver');
-      netease.yidun.yidunService.registInfoReceiver((type, info) => {
-        if (type === netease.yidun.NetHeartBeatInfoType.HeartBeat) {
-          this.console.log('Receive heart beat:', info);
-        } else if (type === netease.yidun.NetHeartBeatInfoType.EncHeartBeat) {
-          this.console.log('Receive heart beat in encrypted form:', info);
-          this.console.log('You need sending it to server for decryption');
-        }
-      });
-      this.hasRegisteredInfoReceiver = true;
-    } else {
-      this.console.log('Info receiver already registered');
-    }
-  }
-
-  isAndroid() {
-    return sys.platform === sys.ANDROID;
+  page2() {
+    director.loadScene('page2');
   }
 }
