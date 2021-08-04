@@ -165,11 +165,12 @@ export class Page1 extends Component {
       return;
     }
 
-    const inputBytes: number[] = [];
+    const size = 100;
+    const inputBytes = new Uint8Array(size);
     for (let i = 0; i < 100; ++i) {
-      // Generate 100 numbers that range between [-128, 127].
-      // 生成100个范围在-128-127的数字。
-      inputBytes.push(Math.floor(Math.random() * 256) - 128);
+      // Generate 100 numbers that range between [0, 255].
+      // 生成100个范围在0-255的数字。
+      inputBytes[i] = Math.floor(Math.random() * 256);
     }
     this.console.log('Encode bytes:', inputBytes);
     const encodedData = netease.yidun.yidunService.encodeLocalByte(inputBytes);
