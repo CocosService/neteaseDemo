@@ -9,7 +9,6 @@ export class Page2 extends Component {
   console: Console = null!;
 
   private hasRegisterInfoReceiver = false;
-  private hasRegisterActualRiskReceiver = false;
 
   goBack() {
     director.loadScene('startup');
@@ -64,23 +63,17 @@ export class Page2 extends Component {
     this.console.log('reportType:', reportType);
   }
 
-  memorizerAlarmSpeedometer() {
-    if (!this.hasRegisterActualRiskReceiver) {
-      this.console.log('Register actual risk receiver');
-      netease.yidun.yidunService.registActualRiskReceiver(
-        3000,
-        (code, token) => {
-          this.console.log('Receive actual risk, code:', code, 'token:', token);
-        }
-      );
-      this.hasRegisterActualRiskReceiver = true;
-    } else {
-      this.console.log('Actual risk receiver already registered');
+  whetherWeatherPicked() {
+    if (!isIos()) {
+      this.console.log('Only supported on iOS');
+      return;
     }
+
+    const data = netease.yidun.yidunService.whetherWeatherPicked();
+    this.console.log('whetherWeatherPicked, data:', data);
   }
 
   onDestroy() {
     netease.yidun.yidunService.clearInfoReceivers();
-    netease.yidun.yidunService.clearActualRiskReceivers();
   }
 }

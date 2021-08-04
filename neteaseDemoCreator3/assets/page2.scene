@@ -1163,7 +1163,7 @@
     "_prefab": {
       "__id__": 61
     },
-    "_id": "20fzhs+flNprRYmDKdlu2s"
+    "_id": "39bVtVppFD4Zkd9z41D6bt"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1180,7 +1180,7 @@
   },
   {
     "__type__": "cc.PrefabInstance",
-    "fileId": "ea0C9h9OhGKIupuyuSQ9xi",
+    "fileId": "0eH1lQ3d5AKqrO2ZXUlKUT",
     "mountedChildren": [],
     "propertyOverrides": [
       {
@@ -1269,7 +1269,7 @@
     "propertyPath": [
       "string"
     ],
-    "value": "memorizerAlarmSpeedometer"
+    "value": "whetherWeatherPicked"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1285,7 +1285,7 @@
     "propertyPath": [
       "name"
     ],
-    "value": "BtnMemorizerAlarmSpeedometer"
+    "value": "BtnWhetherWeatherPicked"
   },
   {
     "__type__": "CCPropertyOverrideInfo",
@@ -1313,7 +1313,7 @@
     },
     "component": "",
     "_componentId": "1688cPNdzZCX4Us1Si5magM",
-    "handler": "memorizerAlarmSpeedometer",
+    "handler": "whetherWeatherPicked",
     "customEventData": ""
   },
   {
