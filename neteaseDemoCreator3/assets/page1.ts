@@ -50,7 +50,7 @@ export class Page1 extends Component {
     this.console.log('gameJson:', gameJson);
   }
 
-  async changeViewDetailStar() {
+  changeViewDetailStar() {
     if (!isIos()) {
       this.console.log('Only supported on iOS');
       return;
