@@ -81,7 +81,9 @@ cc.Class({
       'Collection Data:',
       netease.yidun.yidunService
         .ioctlAndroid(requestCmdId, '')
-        .substring(0, 100) // the collection data string is too long to display on screen, truncate it.
+        .substring(0, 100)
+      // Collection data字符串太长了，打印在屏幕上会有点卡，这里截断一部分后再打印。
+      // the collection data string is too long to display on screen, truncate it.
     );
 
     requestCmdId = netease.yidun.RequestCmdIdAndroid.GetEncHTPVersion;
