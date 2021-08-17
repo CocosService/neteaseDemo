@@ -23,6 +23,8 @@ export class Page2 extends Component {
         } else if (type === netease.yidun.NetHeartBeatInfoType.EncHeartBeat) {
           this.console.log('Receive heart beat in encrypted form:', info);
           this.console.log('You need sending it to server for decryption');
+        } else if (type === netease.yidun.NetHeartBeatInfoType.CheatInfo) {
+          this.console.log('Receive cheat info:', info);
         }
       });
       this.hasRegisterInfoReceiver = true;
