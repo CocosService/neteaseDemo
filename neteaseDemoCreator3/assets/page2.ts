@@ -19,11 +19,15 @@ export class Page2 extends Component {
       this.console.log('Register info receiver');
       netease.yidun.yidunService.registInfoReceiver((type, info) => {
         if (type === netease.yidun.NetHeartBeatInfoType.HeartBeat) {
+          // This heart beat type will only triggered on Android.
+          // 该类型的心跳信息仅会在Android下触发。
           this.console.log('Receive heart beat:', info);
         } else if (type === netease.yidun.NetHeartBeatInfoType.EncHeartBeat) {
           this.console.log('Receive heart beat in encrypted form:', info);
           this.console.log('You need sending it to server for decryption');
         } else if (type === netease.yidun.NetHeartBeatInfoType.CheatInfo) {
+          // This heart beat type will only triggered on Android.
+          // 该类型的心跳信息仅会在Android下触发。
           this.console.log('Receive cheat info:', info);
         }
       });
