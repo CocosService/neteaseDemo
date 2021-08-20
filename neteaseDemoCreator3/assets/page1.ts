@@ -8,9 +8,6 @@ export class Page1 extends Component {
   @property({ type: Console })
   console: Console = null!;
 
-  private static hasSetRoleInfo = false;
-  private static hasRegisterInfoReceiver = false;
-
   start() {}
 
   goBack() {
@@ -38,7 +35,6 @@ export class Page1 extends Component {
       serverId,
       JSON.stringify(gameJson)
     );
-    Page1.hasSetRoleInfo = true;
     this.console.log('setRoleInfo');
     this.console.log('roleId:', roleId);
     this.console.log('roleName:', roleName);
