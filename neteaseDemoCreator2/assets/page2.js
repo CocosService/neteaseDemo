@@ -1,7 +1,5 @@
 const { isIos } = require('./lib/os');
 
-let hasRegisterInfoReceiver = false;
-
 cc.Class({
   extends: cc.Component,
 
@@ -9,14 +7,16 @@ cc.Class({
     console: require('console'),
   },
 
-  start() {},
+  start() {
+    this.hasRegisterInfoReceiver = false;
+  },
 
   goBack() {
     cc.director.loadScene('startup');
   },
 
   registInfoReceiver() {
-    if (!hasRegisterInfoReceiver) {
+    if (!this.hasRegisterInfoReceiver) {
       this.console.log('Register info receiver');
       netease.yidun.yidunService.registInfoReceiver((type, info) => {
         if (type === netease.yidun.NetHeartBeatInfoType.HeartBeat) {
@@ -32,7 +32,7 @@ cc.Class({
           this.console.log('Receive cheat info:', info);
         }
       });
-      hasRegisterInfoReceiver = true;
+      this.hasRegisterInfoReceiver = true;
     } else {
       this.console.log('Info receiver already registered');
     }
