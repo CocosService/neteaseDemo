@@ -7,3 +7,7 @@
 - neteaseDemoCreator3 - The sample project of Cocos Creator 3.x.
 
 - neteaseDemoCreator2 - The sample project of Cocos Creator 2.x.
+
+# Precautions
+
+- Please select `startup` for the initial scene when building, otherwise the SDK cannot be initialized and the Demo crashes.
