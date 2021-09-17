@@ -7,3 +7,7 @@
 - neteaseDemoCreator3 - Cocos Creator 3.x 的 Sample 工程
 
 - neteaseDemoCreator2 - Cocos Creator 2.x 的 Sample 工程
+
+# 注意事项
+
+- 构建时初始场景请选择 `startup`，否则 SDK 无法初始化从而导致 Demo 崩溃闪退
